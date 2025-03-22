@@ -22,7 +22,7 @@ frontend/out-tsc/
 frontend/bazel-out/
 frontend/npm-debug.log
 frontend/yarn-error.log
-frontend/.angular/cache
+frontend/.angular
 frontend/.sass-cache/
 frontend/connect.lock
 frontend/coverage/
