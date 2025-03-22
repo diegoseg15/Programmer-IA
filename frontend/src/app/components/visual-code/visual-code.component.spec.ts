@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponentComponent } from './header-component.component';
+import { VisualCodeComponent } from './visual-code.component';
 
-describe('HeaderComponentComponent', () => {
-  let component: HeaderComponentComponent;
-  let fixture: ComponentFixture<HeaderComponentComponent>;
+describe('VisualCodeComponent', () => {
+  let component: VisualCodeComponent;
+  let fixture: ComponentFixture<VisualCodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponentComponent]
+      imports: [VisualCodeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponentComponent);
+    fixture = TestBed.createComponent(VisualCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
