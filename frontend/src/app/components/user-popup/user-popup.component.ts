@@ -11,4 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './user-popup.component.css'
 })
 export class UserPopupComponent {
+  isOpen: boolean = false;
+
+  togglePopup(): void {
+    this.isOpen = !this.isOpen;
+    console.log('Popup toggled:', this.isOpen);
+  }
+
+  closePopup() {
+    this.isOpen = false;
+  }
 }
