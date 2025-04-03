@@ -1,0 +1,38 @@
+<div class="relative">
+  <button type="button" class="flex items-center text-white  cursor-pointer" (click)="togglePopup()">
+    <div class="flex rounded-full overflow-hidden w-8 h-8 bg-cyan-600">
+      <!-- Imagen de usuario -->
+    </div>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="arrow drop down icon"
+      fontIcon="arrow_drop_down"
+    ></mat-icon>
+  </button>
+
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10"
+    [hidden]="!isOpen"
+  >
+    <ul>
+      <li>
+        <a routerLink="/" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+          <mat-icon fontIcon="person"></mat-icon>
+          Tu perfil
+        </a>
+      </li>
+      <li>
+        <a routerLink="/" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+          <mat-icon fontIcon="history"></mat-icon>
+          Historial de chats
+        </a>
+      </li>
+      <li>
+        <a routerLink="/login" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+          <mat-icon fontIcon="logout"></mat-icon>
+          Cerrar sesión
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
