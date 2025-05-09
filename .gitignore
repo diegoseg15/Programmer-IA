@@ -32,27 +32,46 @@ frontend/typings/
 frontend/.env
 frontend/.vscode/
 
-# === Backend (Python) ===
+# === Backend (Python / Django) ===
 backend/__pycache__/
-backend/*.py[cod]
+backend/**/*.py[cod]
 backend/*.egg-info/
-backend/dist/
 backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
 backend/.env
-backend/.venv
+backend/.venv/
 backend/venv/
 backend/env/
 backend/.mypy_cache/
 backend/.pytest_cache/
 backend/.coverage
 backend/coverage.xml
+backend/htmlcov/
 backend/.tox/
 backend/.cache/
 backend/.pylint.d/
 backend/.vscode/
 backend/.DS_Store
+backend/local_settings.py
+backend/db.sqlite3
 
-# === Optional: Global virtualenvs ===
+# Django specific
+backend/media/
+backend/staticfiles/
+backend/static_root/
+backend/static/
+backend/public/
+backend/assets/
+
+# === Global virtualenvs (optional extra protection) ===
 .env
 .venv
 env/
