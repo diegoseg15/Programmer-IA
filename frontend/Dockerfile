@@ -1,11 +1,14 @@
-# Etapa de build
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build --prod
+# Etapa 1: compilar Angular
+FROM node:20-alpine AS build
 
-# Etapa de producción
-FROM nginx:alpine
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
+RUN npm run build --configuration=production
+
+# Etapa 2: servir con nginx
+FROM nginx:stable-alpine
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
