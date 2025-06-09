@@ -77,6 +77,12 @@ backend/assets/
 env/
 venv/
 
+# === Docker (optional)
+docker-compose.override.yml
+*.pid
+*.sock
+*.db
+
 # === Optional: macOS/Linux swap files ===
 *.swp
 *~
