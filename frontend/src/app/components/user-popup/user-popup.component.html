@@ -1,35 +1,43 @@
 <div class="user-popup">
-  <button type="button" class="user-button" (click)="togglePopup()">
-    <div class="user-avatar">
-      <!-- Imagen de usuario -->
-    </div>
-    <mat-icon
-      aria-hidden="false"
-      aria-label="arrow drop down icon"
-      fontIcon="arrow_drop_down"
-    ></mat-icon>
-  </button>
+  <!-- Mostrar solo si el usuario está autenticado -->
+  <div *ngIf="isAuthenticated">
+    <button type="button" class="user-button" (click)="togglePopup()">
+      <div class="user-avatar">
+        <!-- Puedes mostrar la inicial del usuario o una imagen -->
+        {{ userEmail | slice:0:1 | uppercase }}
+      </div>
+      <span class="user-email">{{ userEmail }}</span>
+      <mat-icon aria-hidden="false" aria-label="arrow drop down icon" fontIcon="arrow_drop_down"></mat-icon>
+    </button>
 
-  <div class="user-menu" [hidden]="!isOpen">
-    <ul>
-      <li>
-        <a routerLink="/" class="user-menu-item">
-          <mat-icon fontIcon="person"></mat-icon>
-          Tu perfil
-        </a>
-      </li>
-      <li>
-        <a routerLink="/" class="user-menu-item">
-          <mat-icon fontIcon="history"></mat-icon>
-          Historial de chats
-        </a>
-      </li>
-      <li>
-        <a routerLink="/login" class="user-menu-item">
-          <mat-icon fontIcon="logout"></mat-icon>
-          Cerrar sesión
-        </a>
-      </li>
-    </ul>
+    <div class="user-menu" [hidden]="!isOpen">
+      <ul>
+        <li>
+          <a routerLink="/profile" class="user-menu-item" (click)="closePopup()">
+            <mat-icon fontIcon="person"></mat-icon>
+            Tu perfil
+          </a>
+        </li>
+        <li>
+          <a routerLink="/chat-history" class="user-menu-item" (click)="closePopup()">
+            <mat-icon fontIcon="history"></mat-icon>
+            Historial de chats
+          </a>
+        </li>
+        <li>
+          <a class="user-menu-item" (click)="logout()">
+            <mat-icon fontIcon="logout"></mat-icon>
+            Cerrar sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mostrar opción de login si no está autenticado -->
+  <div *ngIf="!isAuthenticated" class="not-authenticated">
+    <a routerLink="/login" class="login-link">
+      <mat-icon fontIcon="login"></mat-icon>
+      Iniciar sesión</a>
   </div>
 </div>
