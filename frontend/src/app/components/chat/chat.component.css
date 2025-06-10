@@ -1,0 +1,120 @@
+.chat-container {
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 2px solid #ccc;
+}
+
+.chat-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.chat-select {
+  cursor: pointer;
+}
+
+.chat-body {
+  padding: 1.25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(94vh - 200px);
+  flex-grow: 1;
+}
+
+.chat-assistant {
+  margin-bottom: 1rem;
+}
+
+.chat-label {
+  font-size: 0.875rem;
+  color: #0e7490; /* cyan-700 */
+  font-weight: 500;
+}
+
+.chat-user-message {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chat-bubble {
+  background-color: #e5e7eb; /* gray-200 */
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  max-width: 50%;
+}
+
+.chat-form {
+  padding: 0.5rem 1.25rem;
+  border-top: 2px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 2.5rem;
+  max-height: 200px;
+  transition: border-color 0.3s ease;
+  overflow-y: auto;
+}
+
+.chat-input:focus {
+  border-color: #0e7490; /* cyan-700 */
+}
+
+.chat-button {
+  background-color: #0e7490; /* cyan-700 */
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+  background-color: #155e75; /* cyan-800 */
+}
+
+.chat-input::-webkit-scrollbar {
+  width: 8px; /* ancho del scroll vertical */
+  height: 8px; /* alto del scroll horizontal */
+}
+
+.chat-input::-webkit-scrollbar-track {
+  background: #f3f4f6; /* color de fondo del riel */
+  border-radius: 10px;
+}
+
+.chat-input::-webkit-scrollbar-thumb {
+  background-color: #0e7490; /* color del scroll (cyan-700) */
+  border-radius: 10px;
+  border: 2px solid #f3f4f6; /* espacio interior entre scroll y track */
+}
+
+.chat-input::-webkit-scrollbar-thumb:hover {
+  background-color: #155e75; /* hover: cyan-800 */
+}

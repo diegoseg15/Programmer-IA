@@ -1,0 +1,16 @@
+.main-layout {
+  height: 100vh; /* h-screen */
+  width: 100vw; /* w-screen */
+  overflow: hidden; /* overflow-hidden */
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: grid; /* grid */
+  grid-template-columns: repeat(2, 1fr); /* grid-cols-2 */
+  gap: 1.25rem; /* gap-5 = 20px */
+  margin: 1.25rem; /* m-5 = 20px */
+  height: 80%; /* h-4/5 */
+  flex-grow: 1;
+}
