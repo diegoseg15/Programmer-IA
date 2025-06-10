@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // 👈 Importás FormsModule acá
-import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
+import { UserLogin } from '../../compartido/userlogin';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +18,27 @@ export class LoginComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   onSubmit(): void {
-    if (this.email === 'admin' && this.password === '1234') {
-      this.successMessage = 'Login successful!';
-      this.errorMessage = '';
-    } else {
-      this.errorMessage = 'Invalid username or password';
-      this.successMessage = '';
-    }
+    const userLogin: UserLogin = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.login(userLogin).subscribe({
+      next: (response) => {
+        // Asumiendo que el backend devuelve el token en response.token
+        if (response.token) {
+          localStorage.setItem('token', response.token); // Guardar el token
+          this.router.navigate(['/']); // Redirigir a página principal
+        }
+      },
+      error: (err) => {
+        this.errorMessage = 'Credenciales incorrectas';
+        this.successMessage = '';
+        console.error('Error en login:', err);
+      }
+    });
   }
 }
