@@ -8,12 +8,7 @@ import { baseURL } from '../compartido/baseurl';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, Access-Control-Allow-Headers, X-Requested-With'
-
   }),
-  withCredentials: true
 };
 
 @Injectable({
@@ -24,7 +19,7 @@ export class AIChatsService {
   constructor(private http: HttpClient) { }
 
   chatModels(prompt: Prompt): Observable<any> {
-    return this.http.post<any>(baseURL, prompt, httpOptions)
+    return this.http.post<any>(`${baseURL}/chat/`, prompt, httpOptions)
   }
 
 }
