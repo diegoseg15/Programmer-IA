@@ -29,7 +29,7 @@ class ChatView(APIView):
     )
     def post(self, request):
         url_openai = 'https://api.openai.com/v1/chat/completions'
-        url_deepseek = 'https://api.deepseek.com/v1/chat/completions'
+        url_deepseek = 'https://api.deepseek.com/chat/completions'
 
         headers_openai = {
             'Authorization': f'Bearer {OPENAI_SECRET_KEY}',
