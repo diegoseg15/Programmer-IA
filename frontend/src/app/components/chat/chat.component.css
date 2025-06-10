@@ -20,6 +20,10 @@
   margin: 0;
 }
 
+.chat-error {
+  color: #c31e1e;
+}
+
 .chat-select {
   cursor: pointer;
 }
@@ -30,6 +34,7 @@
   overflow-y: auto;
   height: calc(94vh - 200px);
   flex-grow: 1;
+  overflow-x: scroll;
 }
 
 .chat-assistant {
@@ -38,7 +43,8 @@
 
 .chat-label {
   font-size: 0.875rem;
-  color: #0e7490; /* cyan-700 */
+  color: #0e7490;
+  /* cyan-700 */
   font-weight: 500;
 }
 
@@ -47,8 +53,21 @@
   justify-content: flex-end;
 }
 
-.chat-bubble {
-  background-color: #e5e7eb; /* gray-200 */
+.chat-assistant-message {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chat-assistant-bubble {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  max-width: 90%;
+}
+
+.chat-user-bubble {
+  background-color: #e5e7eb;
+  /* gray-200 */
   border-radius: 0.5rem;
   padding: 0.75rem;
   margin: 0.5rem 0;
@@ -81,11 +100,13 @@
 }
 
 .chat-input:focus {
-  border-color: #0e7490; /* cyan-700 */
+  border-color: #0e7490;
+  /* cyan-700 */
 }
 
 .chat-button {
-  background-color: #0e7490; /* cyan-700 */
+  background-color: #0e7490;
+  /* cyan-700 */
   color: white;
   font-weight: bold;
   padding: 0.5rem 1rem;
@@ -96,25 +117,77 @@
 }
 
 .chat-button:hover {
-  background-color: #155e75; /* cyan-800 */
+  background-color: #155e75;
+  /* cyan-800 */
 }
 
 .chat-input::-webkit-scrollbar {
-  width: 8px; /* ancho del scroll vertical */
-  height: 8px; /* alto del scroll horizontal */
+  width: 8px;
+  /* ancho del scroll vertical */
+  height: 8px;
+  /* alto del scroll horizontal */
 }
 
 .chat-input::-webkit-scrollbar-track {
-  background: #f3f4f6; /* color de fondo del riel */
+  background: #f3f4f6;
+  /* color de fondo del riel */
   border-radius: 10px;
 }
 
 .chat-input::-webkit-scrollbar-thumb {
-  background-color: #0e7490; /* color del scroll (cyan-700) */
+  background-color: #0e7490;
+  /* color del scroll (cyan-700) */
   border-radius: 10px;
-  border: 2px solid #f3f4f6; /* espacio interior entre scroll y track */
+  border: 2px solid #f3f4f6;
+  /* espacio interior entre scroll y track */
 }
 
 .chat-input::-webkit-scrollbar-thumb:hover {
-  background-color: #155e75; /* hover: cyan-800 */
+  background-color: #155e75;
+  /* hover: cyan-800 */
+}
+
+.markdown-content {
+  line-height: 1.6;
+  font-family: inherit;
+}
+
+.markdown-content h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em 0;
+}
+
+.markdown-content h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.75em 0;
+}
+
+.markdown-content h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin: 0.83em 0;
+}
+
+.markdown-content h4 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1.12em 0;
+}
+
+.markdown-content h5 {
+  font-size: 0.83em;
+  font-weight: bold;
+  margin: 1.5em 0;
+}
+
+.markdown-content h6 {
+  font-size: 0.75em;
+  font-weight: bold;
+  margin: 1.67em 0;
+}
+
+.markdown-content strong {
+  font-weight: bold;
 }
