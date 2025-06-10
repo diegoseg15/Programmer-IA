@@ -1,1 +1,1 @@
-export const baseURL = "http://localhost:8000/api/chat/"
+export const baseURL = 'http://localhost:8000/api/v1/chat/';
