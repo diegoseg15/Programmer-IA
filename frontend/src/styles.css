@@ -1,5 +1,135 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import 'prismjs/themes/prism-okaidia';
+@import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+@import 'prismjs/plugins/toolbar/prism-toolbar.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.language-javascript {
+  color: #f8dc3d;
+}
+
+.language-typescript {
+  color: #3178c6;
+}
+
+.language-python {
+  color: #3572A5;
+}
+
+.language-java {
+  color: #b07219;
+}
+
+.language-html {
+  color: #e34c26;
+}
+
+.language-css {
+  color: #563d7c;
+}
+
+.language-c {
+  color: #555555;
+}
+
+.language-cpp {
+  color: #f34b7d;
+}
+
+.language-csharp {
+  color: #178600;
+}
+
+.language-php {
+  color: #4F5D95;
+}
+
+.language-ruby {
+  color: #701516;
+}
+
+.language-go {
+  color: #00ADD8;
+}
+
+.language-rust {
+  color: #dea584;
+}
+
+.language-kotlin {
+  color: #A97BFF;
+}
+
+.language-swift {
+  color: #F05138;
+}
+
+.language-shell {
+  color: #89e051;
+}
+
+.language-sql {
+  color: #e38c00;
+}
+
+.language-dart {
+  color: #00B4AB;
+}
+
+.language-perl {
+  color: #0298c3;
+}
+
+.language-lua {
+  color: #000080;
+}
+
+.language-scala {
+  color: #c22d40;
+}
+
+.language-haskell {
+  color: #5e5086;
+}
+
+.language-elixir {
+  color: #6e4a7e;
+}
+
+.language-clojure {
+  color: #db5855;
+}
+
+.language-erlang {
+  color: #B83998;
+}
+
+.language-matlab {
+  color: #e16737;
+}
+
+.language-vbnet {
+  color: #945db7;
+}
+
+.language-objectivec {
+  color: #438eff;
+}
+
+.language-powershell {
+  color: #012456;
+}
+
+.language-groovy {
+  color: #e69f56;
+}
