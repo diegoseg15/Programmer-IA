@@ -1,8 +1,20 @@
 <div class="main-layout">
   <app-header></app-header>
+  
   <div class="main-content">
-    <app-chat></app-chat>
-    <app-visual-code></app-visual-code>
+    <app-chat 
+      [messages]="messages"
+      [isLoading]="isLoading"
+      [parsedResponse]="parsedResponse"
+      (chatSubmit)="onChatSubmit($event)">
+    </app-chat>
+    
+    <app-visual-code 
+      [codeData]="parsedResponse?.code || ''"
+      [language]="parsedResponse?.lenguaje || ''"
+      [analysis]="parsedResponse?.mensaje || ''">
+    </app-visual-code>
   </div>
+  
   <app-footer></app-footer>
 </div>
