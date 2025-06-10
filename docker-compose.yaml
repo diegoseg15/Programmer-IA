@@ -1,0 +1,41 @@
+services:
+  # frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: frontend/Dockerfile
+  #   ports:
+  #     - "4500:80"
+  #   depends_on:
+  #     - backend
+
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - "9600:8000"
+  #   depends_on:
+  #     - mongo
+  #   environment:
+  #     - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+  #     - MONGO_URI=${MONGO_URI}
+  #     - OPENAI_SECRET_KEY=${OPENAI_SECRET_KEY}
+  #     - DEEPSEEK_SECRET_KEY=${DEEPSEEK_SECRET_KEY}
+
+  mongo-programmer-ia:
+    image: mongo:7.0
+    container_name: mongo-programmer-ia
+    restart: unless-stopped
+    volumes:
+      - ./DataBase/mdb_programmer_ia.js:/docker-entrypoint-initdb.d/mdb_programmer_ia.js:ro
+      - mongo_programmer_ia:/data/db
+    ports:
+      - "27019:27017"
+    networks:
+      - programmer_ia_network
+
+networks:
+  programmer_ia_network:
+    driver: bridge    
+
+volumes:
+  mongo_programmer_ia:
+    driver: local # Utiliza un volumen persistente local
