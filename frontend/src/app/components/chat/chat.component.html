@@ -12,27 +12,24 @@
   <div class="chat-body">
     <div *ngIf="error" class="chat-error">{{ error }}</div>
 
-    <div
-      *ngFor="let msg of messages"
-      [ngClass]="{ 'chat-user-message': msg.role === 'user' }"
-    >
-      <div class="chat-bubble">
+    <div *ngFor="let msg of messages"
+      [ngClass]="{ 'chat-user-message': msg.role === 'user', 'chat-user-assistant': msg.role === 'assistant' }">
+      <div [ngClass]="{ 'chat-user-bubble': msg.role === 'user', 'chat-assistant-bubble': msg.role === 'assistant' }">
         <span class="chat-label">
-          {{ msg.role === "user" ? "Usuario" : "Asistente" }}
+          {{ msg.role === 'user' ? 'Usuario' : 'Asistente' }}
         </span>
-        <p>{{ parsearMensaje(msg.content) }}</p>
+        <div [innerHTML]="msg.role === 'assistant' 
+          ? (parsedResponse?.mensaje ? parseMarkdown(parsedResponse.mensaje) : parseMarkdown(msg.content))
+          : parseMarkdown(msg.content)">
+        </div>
       </div>
     </div>
   </div>
 
+
   <div class="chat-form" [formGroup]="chatForm">
-    <textarea
-      name="contenido"
-      rows="2"
-      formControlName="mensaje"
-      placeholder="Escribe un mensaje..."
-      class="chat-input"
-    ></textarea>
+    <textarea name="contenido" rows="2" formControlName="mensaje" placeholder="Escribe un mensaje..."
+      class="chat-input"></textarea>
     <button type="submit" class="chat-button">Enviar</button>
   </div>
 </form>

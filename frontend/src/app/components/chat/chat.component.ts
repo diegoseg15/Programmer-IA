@@ -8,6 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { marked } from 'marked';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // <-- Añade esto
+
 
 @Component({
   standalone: true,
@@ -21,15 +24,30 @@ export class ChatComponent {
     modelo: string;
     mensaje: string;
   }>();
+  @Input() isLoading: boolean = false;
   @Input() messages: Message[] = [];
-  @Input() parsedResponse: any = null; // ✅ Ahora recibimos parsedResponse
+  @Input() parsedResponse: any = null;
 
   chatForm!: FormGroup;
-  modelos: string[] = ['gpt-3', 'gpt-4', 'gpt-4o', 'deepseek-chat'];
+  modelos: string[] = ['gpt-4o', 'gpt-3.5-turbo', 'gpt-3.5', 'deepseek-chat'];
   error: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {
     this.crearFormulario();
+    marked.use({ async: false });
+    this.configureMarked();
+
+  }
+
+  private configureMarked(): void {
+    marked.setOptions({
+      gfm: true,
+      breaks: true,
+      silent: true // Evita advertencias en consola
+    });
   }
 
   crearFormulario() {
@@ -41,7 +59,7 @@ export class ChatComponent {
 
   onSubmit() {
     if (this.chatForm.invalid) {
-      this.error = 'Por favor completa los campos correctamente.';
+      this.error = '⚠️ Por favor completa los campos correctamente.';
       return;
     }
 
@@ -50,16 +68,16 @@ export class ChatComponent {
     const formData = {
       modelo: this.chatForm.value.modelo,
       mensaje: this.chatForm.value.mensaje,
-    };
+    };    
 
     // Emitir datos al padre
     this.chatSubmit.emit(formData);
 
     // Añadir mensaje del usuario al chat localmente
-    this.messages.push({
-      role: 'user',
-      content: this.chatForm.value.mensaje,
-    });
+    // this.messages.push({
+    //   role: 'user',
+    //   content: this.chatForm.value.mensaje,
+    // });
 
     // Limpiar campo de mensaje
     const mensajeCtrl = this.chatForm.get('mensaje');
@@ -76,20 +94,14 @@ export class ChatComponent {
     });
   }
 
-  parsearMensaje(content: string): string {
+  parseMarkdown(text: string): SafeHtml {
     try {
-      const json = JSON.parse(
-        content
-          .replace(/```json/gi, '')
-          .replace(/```/g, '')
-          .replace(/\\n/g, '')
-          .trim()
-      );
-      console.log(content);
-
-      return json.mensaje || content; // Si no tiene mensaje, devuelve el contenido bruto
-    } catch {
-      return content; // Si falla el parseo, muestra el contenido tal cual
+      if (!text) return '';
+      const parsed = marked(text) as string;
+      return this.sanitizer.bypassSecurityTrustHtml(parsed);
+    } catch (error) {
+      return this.sanitizer.bypassSecurityTrustHtml(text);
     }
   }
+
 }
