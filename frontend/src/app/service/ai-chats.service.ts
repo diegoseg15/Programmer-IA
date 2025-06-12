@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Prompt } from '../compartido/prompt';
 import { baseURL } from '../compartido/baseurl';
-import { PromptSave } from '../compartido/promptSave';
 
 
 const httpOptions = {
