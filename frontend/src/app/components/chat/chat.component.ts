@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Message } from '../../compartido/message';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +8,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { marked } from 'marked';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // <-- Añade esto
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 @Component({
@@ -25,11 +24,12 @@ export class ChatComponent {
     mensaje: string;
   }>();
   @Input() isLoading: boolean = false;
-  @Input() messages: Message[] = [];
-  @Input() parsedResponse: any = null;
+  @Input() messages: any[] = [];
+
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
   chatForm!: FormGroup;
-  modelos: string[] = ['gpt-4o', 'gpt-3.5-turbo', 'gpt-3.5', 'deepseek-chat'];
+  modelos: string[] = ['gpt-4o', 'o4-mini', 'o3-mini', 'gpt-3.5-turbo', 'deepseek-chat', 'gemini-2.0-flash'];
   error: string = '';
 
   constructor(
@@ -46,7 +46,7 @@ export class ChatComponent {
     marked.setOptions({
       gfm: true,
       breaks: true,
-      silent: true // Evita advertencias en consola
+      silent: true
     });
   }
 
@@ -68,25 +68,16 @@ export class ChatComponent {
     const formData = {
       modelo: this.chatForm.value.modelo,
       mensaje: this.chatForm.value.mensaje,
-    };    
+    };
 
-    // Emitir datos al padre
     this.chatSubmit.emit(formData);
 
-    // Añadir mensaje del usuario al chat localmente
-    // this.messages.push({
-    //   role: 'user',
-    //   content: this.chatForm.value.mensaje,
-    // });
-
-    // Limpiar campo de mensaje
     const mensajeCtrl = this.chatForm.get('mensaje');
     if (mensajeCtrl instanceof FormControl) {
       mensajeCtrl.reset();
     }
   }
 
-  // Este método lo puedes usar desde el padre para agregar respuesta del assistant
   agregarRespuesta(respuesta: string) {
     this.messages.push({
       role: 'assistant',
@@ -101,6 +92,21 @@ export class ChatComponent {
       return this.sanitizer.bypassSecurityTrustHtml(parsed);
     } catch (error) {
       return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['messages']) {
+      setTimeout(() => this.scrollToBottom(), 100);
+    }
+  }
+
+  private scrollToBottom(): void {
+    try {
+      const el = this.scrollContainer.nativeElement;
+      el.scrollTop = el.scrollHeight;
+    } catch (err) {
+      console.error('Scroll error:', err);
     }
   }
 
