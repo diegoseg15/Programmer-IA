@@ -1,12 +1,12 @@
 <div class="user-popup">
   <!-- Mostrar solo si el usuario está autenticado -->
   <div *ngIf="isAuthenticated">
-    <button type="button" class="user-button" (click)="togglePopup()">
+    <button type="button" class="user-button" (click)="togglePopup()"  (clickOutside)="closePopup()">
       <div class="user-avatar">
         <!-- Puedes mostrar la inicial del usuario o una imagen -->
-        {{ userEmail | slice:0:1 | uppercase }}
+        {{ userName | slice:0:1 | uppercase }}
       </div>
-      <span class="user-email">{{ userEmail }}</span>
+      <span class="user-email">{{ userName }}</span>
       <mat-icon aria-hidden="false" aria-label="arrow drop down icon" fontIcon="arrow_drop_down"></mat-icon>
     </button>
 
@@ -19,7 +19,7 @@
           </a>
         </li>
         <li>
-          <a routerLink="/chat-history" class="user-menu-item" (click)="closePopup()">
+          <a routerLink="/chats/history" class="user-menu-item" (click)="closePopup()">
             <mat-icon fontIcon="history"></mat-icon>
             Historial de chats
           </a>
