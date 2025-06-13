@@ -1,4 +1,5 @@
 .code-container {
+  max-width: 100vh;
   border: 2px solid #ccc;
   border-radius: 0.5rem;
   height: 95%;
@@ -7,7 +8,8 @@
   flex-direction: column;
 }
 
-.code-header, .code-analysis {
+.code-header,
+.code-analysis {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +17,8 @@
   border-bottom: 2px solid #ccc;
 }
 
-.code-title, .analysis-title {
+.code-title,
+.analysis-title {
   font-weight: bold;
   font-size: 1.5rem;
   margin: 0;
@@ -29,12 +32,21 @@
   background-color: hsl(0, 0%, 93%);
 }
 
+.language-version {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
 .code-body {
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
-  background-color: #1f2937; /* gray-800 */
-  height: calc(104vh - 200px); /* h-[calc(104vh-200px)] */
+  background-color: #1f2937;
+  /* gray-800 */
+  height: calc(104vh - 200px);
+  /* h-[calc(104vh-200px)] */
   flex-grow: 1;
 }
 
@@ -58,4 +70,12 @@ pre {
 code[class*="language-"] {
   font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 0.9rem;
+}
+
+pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  display: block;
+  cursor: text;
+
 }

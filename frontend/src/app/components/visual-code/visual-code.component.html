@@ -1,15 +1,19 @@
 <div class="code-container">
   <div class="code-header">
     <h5 class="code-title">Código</h5>
-    <h6 class="code-language" [ngClass]="'language-' + language.toLowerCase()">
-      {{ language || 'Texto' }}
-    </h6>
+    <div class="language-version">
+      <select [(ngModel)]="selectedIndex" (change)="onSelectChange()">
+        <option *ngFor="let msg of messages; index as i" [value]="i">
+          Versión {{ i + 1 }}
+        </option>
+      </select>
+      <h6 class="code-language" [ngClass]="languageClass">
+        {{ language || 'Texto' }}
+      </h6>
+    </div>
   </div>
-  <div>
-    <button>Versión 1</button>
-  </div>
-  
+
   <div class="code-body">
-    <pre><code class="language-none">{{ codeData }}</code></pre>
+    <pre><code [textContent]="codeData" [ngClass]="languageClass"></code></pre> <!-- ✅ -->
   </div>
 </div>
