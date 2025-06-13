@@ -1,0 +1,27 @@
+<div class="main-layout">
+    <app-header></app-header>
+    <div class="main-content">
+        <ul class="list-chats">
+            <li class="item-chat title-chats">
+                <span>Resúmen</span>
+                <span>Modelo</span>
+                <!-- <span>Lenguajes</span> -->
+                <span>Acción</span>
+            </li>
+            <li class="item-chat" *ngFor="let ch of chats">
+                <a [routerLink]="'/chat/'+ch.id" class="chat-title">{{ (ch.messages[1].content || 'Chat vacío').substring(0, 30) }}...</a>
+                <span class="chat-model">{{ch.model}}</span>
+                <!-- <div class="chat-language">
+                    <div class="code-language"><span class="language-java">{{ch.messages[1].content}}</span></div>
+                    <div class="code-language"><span class="language-javascript">JavaScript</span></div>
+                    <div class="code-language"><span class="language-python">Python</span></div>
+                </div> -->
+                <button class="delete-button-chat"  (click)="onSubmitDelete(ch.id)">
+                    <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
+                </button>
+            </li>
+            
+        </ul>
+    </div>
+    <app-footer></app-footer>
+</div>

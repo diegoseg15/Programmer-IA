@@ -1,0 +1,87 @@
+.main-layout {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    width: 100vw;
+    max-height: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 1.25rem;
+    height: 80%;
+    flex-grow: 1;
+    background-color: #f0f0f0cc;
+}
+
+.list-chats {
+    width: calc(100vw - 2.50rem);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 0.5rem;
+    height: max-content;
+}
+
+.item-chat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-bottom: 2px solid #ccc;
+}
+
+code[class*="language-"] {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.9rem;
+}
+
+.code-language {
+    display: flex;
+    margin: 0;
+    padding: 3px 8px;
+    border-radius: 10%;
+    background-color: hsl(0, 0%, 93%);
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-language {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.chat-title {
+    color: #0891b2;
+    text-decoration: underline;
+}
+
+.chat-title:hover {
+    color: #2ebbde;
+}
+
+.delete-button-chat {
+    color: #b20808;
+    text-align: center;
+    cursor: pointer;
+}
+
+.delete-icon {
+    padding: 0px 20px;
+}
+
+.chat-model {
+    text-align: center;
+}
+
+.title-chats {
+    text-align: center;
+    padding: 10px;
+    color: #045266;
+}
