@@ -8,27 +8,31 @@
       </option>
     </select>
   </div>
-
-  <div class="chat-body">
-    <div *ngIf="error" class="chat-error">{{ error }}</div>
-
+  <div *ngIf="error" class="chat-error">{{ error }}</div>
+  <div class="chat-body" #scrollContainer>
     <div *ngFor="let msg of messages"
-      [ngClass]="{ 'chat-user-message': msg.role === 'user', 'chat-user-assistant': msg.role === 'assistant' }">
+      [ngClass]="{ 'chat-user-message': msg.role === 'user', 'chat-assistant-message': msg.role === 'assistant', 'chat-system-message': msg.role === 'system' }">
       <div [ngClass]="{ 'chat-user-bubble': msg.role === 'user', 'chat-assistant-bubble': msg.role === 'assistant' }">
         <span class="chat-label">
           {{ msg.role === 'user' ? 'Usuario' : 'Asistente' }}
         </span>
-        <div [innerHTML]="msg.role === 'assistant' 
-          ? (parsedResponse?.mensaje ? parseMarkdown(parsedResponse.mensaje) : parseMarkdown(msg.content))
-          : parseMarkdown(msg.content)">
+        <div [innerHTML]="parseMarkdown(msg.parsedMensaje)">
         </div>
       </div>
     </div>
+    <span class="chat-label" *ngIf="isLoading" >
+          Asistente
+        </span>
+        <div *ngIf="isLoading" class="chat-loading">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
   </div>
 
 
   <div class="chat-form" [formGroup]="chatForm">
-    <textarea name="contenido" rows="2" formControlName="mensaje" placeholder="Escribe un mensaje..."
+    <textarea name="contenido" rows="2" formControlName="mensaje" placeholder="Escribe un mensaje o código..."
       class="chat-input"></textarea>
     <button type="submit" class="chat-button">Enviar</button>
   </div>
