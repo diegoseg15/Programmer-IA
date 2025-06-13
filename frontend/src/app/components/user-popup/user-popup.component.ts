@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -8,18 +8,30 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 
 @Component({
   selector: 'app-user-popup',
+  changeDetection: ChangeDetectionStrategy.OnPush, // <-- Agrega esto
   standalone: true,
-  imports: [RouterLink, MatIconModule, CommonModule, ClickOutsideDirective ],
+  imports: [RouterLink, MatIconModule, CommonModule, ClickOutsideDirective],
   templateUrl: './user-popup.component.html',
   styleUrl: './user-popup.component.css'
 })
 export class UserPopupComponent {
+  @Input() user: any = null;
+
   isOpen: boolean = false;
+  isAuthenticated: boolean | undefined;
+  userName: string | undefined;
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.isAuthenticated = this.authService.isLoggedIn();
+    this.updateUserName();
+  }
+
+  ngOnChanges() {
+    this.updateUserName();
+  }
 
   togglePopup(): void {
     this.isOpen = !this.isOpen;
@@ -36,14 +48,8 @@ export class UserPopupComponent {
     this.router.navigate(['/login']);
   }
 
-  // Método para verificar si el usuario está autenticado
-  get isAuthenticated(): boolean {
-    return this.authService.isLoggedIn();
-  }
+  private updateUserName() {
+    this.userName = this.user?.message.names ? this.user?.message.names + " " + this.user?.message.lastnames : this.user?.email ? this.user?.email : "Usuario";
 
-  // Método para obtener el email del usuario (podrías almacenarlo al hacer login)
-  get userEmail(): string {
-    // Esto es un ejemplo - deberías obtener el email del token o de donde lo hayas almacenado
-    return localStorage.getItem('userEmail') || 'Usuario';
   }
 }
