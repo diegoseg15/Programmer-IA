@@ -2,7 +2,7 @@
   background-color: #f3f4f6; /* gray-100 */
   color: #4b5563; /* gray-600 */
   padding: 0.5rem 0; /* py-2 */
-  margin-top: 2rem; /* mt-8 */
+  height: max-content;
 }
 
 .footer-content {
