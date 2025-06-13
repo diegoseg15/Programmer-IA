@@ -6,6 +6,8 @@ from rest_framework import serializers
 from datetime import datetime
 
 class User(Document):
+    names = StringField(required=True)
+    lastnames = StringField(required=True)
     username = StringField(required=True, unique=True)
     password = StringField(required=True)
 
