@@ -15,7 +15,7 @@ class RegisterView(APIView):
         summary='Registrar nuevo usuario',
     )
     def post(self, request):
-        data = json.loads(request.body)
+        data = request.data
 
         if User.objects(username=data['email']).first():
             return Response({'error': 'Usuario ya existe'}, status=400)
@@ -37,7 +37,7 @@ class LoginView(APIView):
         summary='Iniciar sesión de usuario'
     )
     def post(self, request):
-        data = json.loads(request.body)
+        data = request.data
 
         user = User.objects(username=data['email']).first()  # usamos `username` como campo interno
 
