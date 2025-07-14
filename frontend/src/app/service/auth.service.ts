@@ -29,6 +29,10 @@ export class AuthService {
       );
   }
 
+  register(userRegister: any): Observable<any> {
+    return this.http.post<any>(`${baseURL}/register/`, userRegister, httpOptions);
+  }
+
   // Verificar si el usuario está logueado
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
