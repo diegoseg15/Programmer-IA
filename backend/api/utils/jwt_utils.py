@@ -16,7 +16,7 @@ def verify_jwt(request):
         payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed('Token expirado')
-    except jwt.InvalidTokenError:
+    except jwt.InvalidTokenError as e:
         raise AuthenticationFailed(f'Token inválido: {str(e)}')
 
     return payload['user_id']
