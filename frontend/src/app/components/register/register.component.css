@@ -1,0 +1,117 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #155e75;
+    /* bg-cyan-800 */
+    padding: 1rem;
+}
+
+.register-box {
+    max-width: 28rem;
+    /* max-w-md */
+    width: 100%;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    /* rounded-xl */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* shadow-md */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* space-y-6 */
+}
+
+.register-title {
+    font-size: 1.5rem;
+    /* text-2xl */
+    font-weight: bold;
+    text-align: center;
+    color: #1f2937;
+    /* text-gray-800 */
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* space-y-4 */
+}
+
+.register-label {
+    display: block;
+    font-size: 0.875rem;
+    /* text-sm */
+    font-weight: 500;
+    color: #374151;
+    /* text-gray-700 */
+}
+
+.register-input {
+    margin-top: 0.25rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    /* border-gray-300 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+}
+
+.register-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    /* focus:border-blue-500 */
+    box-shadow: 0 0 0 1px #3b82f6;
+    /* focus:ring-blue-500 */
+}
+
+.register-button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    /* bg-blue-600 */
+    color: white;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #1d4ed8;
+    /* hover:bg-blue-700 */
+}
+
+.error-message {
+    font-size: 0.875rem;
+    color: #dc2626;
+    /* text-red-600 */
+}
+
+.success-message {
+    font-size: 0.875rem;
+    color: #16a34a;
+    /* text-green-600 */
+}
+
+.register-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #4b5563;
+    /* text-gray-600 */
+}
+
+.register-link {
+    color: #2563eb;
+    /* text-blue-600 */
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
