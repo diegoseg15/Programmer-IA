@@ -1,19 +1,19 @@
 <div class="code-container">
   <div class="code-header">
     <h5 class="code-title">Código</h5>
-    <div class="language-version">
+    <div class="version-language">
       <select [(ngModel)]="selectedIndex" (change)="onSelectChange()">
         <option *ngFor="let msg of messages; index as i" [value]="i">
           Versión {{ i + 1 }}
         </option>
       </select>
       <h6 class="code-language" [ngClass]="languageClass">
-        {{ language || 'Texto' }}
+        {{ language || 'Code' }}
       </h6>
     </div>
   </div>
 
   <div class="code-body">
-    <pre><code [textContent]="codeData" [ngClass]="languageClass"></code></pre> <!-- ✅ -->
+    <pre><code [textContent]="codeData" [ngClass]="languageClass"></code></pre>
   </div>
 </div>
