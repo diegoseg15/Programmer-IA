@@ -1,0 +1,83 @@
+<div class="register-container">
+    <div class="register-box">
+        <h1 class="register-title">Register</h1>
+
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="register-form" novalidate>
+            <!-- Nombres -->
+            <div>
+                <label for="names" class="register-label">Nombres</label>
+                <input type="text" id="names" name="names" [(ngModel)]="names" required minlength="2"
+                    #namesRef="ngModel" class="register-input" />
+                <div *ngIf="namesRef.invalid && namesRef.touched" class="error-message">
+                    <small *ngIf="namesRef.errors?.['required']">Nombre es obligatorio.</small>
+                    <small *ngIf="namesRef.errors?.['minlength']">Debe tener al menos 2 caracteres.</small>
+                </div>
+            </div>
+
+            <!-- Apellidos -->
+            <div>
+                <label for="lastnames" class="register-label">Apellidos</label>
+                <input type="text" id="lastnames" name="lastnames" [(ngModel)]="lastnames" required minlength="2"
+                    #lastnamesRef="ngModel" class="register-input" />
+                <div *ngIf="lastnamesRef.invalid && lastnamesRef.touched" class="error-message">
+                    <small *ngIf="lastnamesRef.errors?.['required']">Apellido es obligatorio.</small>
+                    <small *ngIf="lastnamesRef.errors?.['minlength']">Debe tener al menos 2 caracteres.</small>
+                </div>
+            </div>
+
+            <!-- Correo -->
+            <div>
+                <label for="email" class="register-label">Correo</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" required #emailRef="ngModel"
+                    class="register-input" />
+                <div *ngIf="emailRef.invalid && emailRef.touched" class="error-message">
+                    <small *ngIf="passwordRef.errors?.['required']">Contraseña obligatoria.</small>
+                    <small *ngIf="passwordRef.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
+                </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div>
+                <label for="password" class="register-label">Contraseña</label>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required minlength="6"
+                    #passwordRef="ngModel" class="register-input" />
+                <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error-message">
+                    <small *ngIf="repeatPasswordRef.errors?.['required']">Confirmar contraseña es obligatorio.</small>
+                </div>
+
+            </div>
+
+            <!-- Repetir contraseña -->
+            <div>
+                <label for="repeatPassword" class="register-label">Vuelve a escribir la contraseña</label>
+                <input type="password" id="repeatPassword" name="repeatPassword" [(ngModel)]="repeatPassword" required
+                    #repeatPasswordRef="ngModel" class="register-input" />
+                <div *ngIf="repeatPasswordRef.invalid && repeatPasswordRef.touched" class="error-message">
+                    <small *ngIf="repeatPasswordRef.errors?.['required']">Confirmar contraseña es obligatorio.</small>
+                </div>
+                <div *ngIf="password !== repeatPassword && repeatPasswordRef.touched" class="error-message">
+                    <small>Las contraseñas no coinciden.</small>
+                </div>
+            </div>
+
+
+            <button type="submit" [disabled]="registerForm.invalid || password !== repeatPassword"
+                class="register-button">
+                Registrarse
+            </button>
+
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+            <div *ngIf="successMessage" class="success-message">
+                {{ successMessage }}
+            </div>
+        </form>
+
+        <div class="register">
+            <a routerLink="/login" class="register-link">
+                Iniciar sesión
+            </a>
+        </div>
+    </div>
+</div>
