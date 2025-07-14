@@ -1,0 +1,39 @@
+# Python virtual environment and bytecode
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*~
+
+# Database files (if you're using SQLite locally, for example)
+*.sqlite3
+db.sqlite3
+
+# Log files
+*.log
+
+# Editor and IDE files
+.vscode/
+.idea/
+
+# Dotfiles (hidden files)
+.git/
+.gitignore
+.DS_Store
+
+# Environment files
+.env
+.env.*
+
+# Media and static files (if you're not collecting them in build step)
+# This depends on your Django setup. If you're collecting static/media, you might want to include them.
+# But generally, these are volume mounted or served separately in production.
+# media/
+# staticfiles/
+
+# Local test reports
+.pytest_cache/
+.coverage
+
+# Any other local development-specific files or directories
