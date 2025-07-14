@@ -10,7 +10,7 @@ urlpatterns = [
     path('message/update/<str:id>/', UpdateMessageView.as_view(), name='update_message'),
     path('delete-message/<str:id>/', DeleteMessageView.as_view(), name='delete-message'),
 
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login_user'),
     path('register/', RegisterView.as_view(), name='register'),
     path('user_auth/', GetUserActiveView.as_view(), name='get_user_auth')
 ]
