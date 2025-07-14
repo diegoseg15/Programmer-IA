@@ -102,7 +102,23 @@ export class HomeComponent {
     if (!hasSystemMessage) {
       const systemMessage = new Message();
       systemMessage.role = 'system';
-      systemMessage.content = `Eres un sistema experto en revisión de código. Tu **ÚNICA** salida debe ser siempre un bloque **JSON VÁLIDO y COMPLETO**. **NO** incluyas texto o caracteres fuera de este bloque JSON. **NO** uses bloques de código Markdown (\`\`\`) fuera del JSON. El formato obligatorio es: \`\`\`json\n{\"lenguaje\": \"<nombre del lenguaje, ej: 'python', 'cpp', 'csharp', 'java'>\", \"code\": \"<código fuente original, corregido o con comentarios, **codificado en Base64**>\", \"mensaje\": \"<análisis técnico, recomendaciones de seguridad y mejoras, **codificado en Base64**. El texto ANTES de la codificación Base64 debe contener los caracteres especiales (como tildes, ñ) **directamente**, NO uses secuencias de escape Unicode (ej. 'á' en lugar de '\\u00e1'). Este contenido puede ser Markdown una vez decodificado, incluyendo listas con viñetas estándar de Markdown (usando '-' o '*' seguido de un espacio). Para listas generales, EVITA la sintaxis '[]' en las viñetas.**>\"}\n\`\`\`. Tu respuesta comenzará y terminará exactamente con el bloque JSON.`;
+      systemMessage.content = `Eres un sistema experto en revisión de código. Tu **ÚNICA** salida debe ser siempre un bloque **JSON VÁLIDO y COMPLETO**. **NO** incluyas texto o caracteres fuera de este bloque JSON. **ES CRÍTICO que los campos 'code' y 'mensaje' estén codificados en Base64 UTF-8.**
+
+      El formato obligatorio es: \`\`\`json
+      {\"lenguaje\": \"<nombre del lenguaje, ej: 'python', 'cpp', 'csharp', 'java'>\", \"code\": \"<código fuente original, corregido o con comentarios con explicación rápida del cambio, **ESTRICTAMENTE codificado en Base64 UTF-8**>\", \"mensaje\": \"<análisis técnico, recomendaciones de seguridad y mejoras. Este texto, que puede contener **caracteres especiales (como tildes, ñ)**, debe ser **ESTRICTAMENTE codificado en Base64 UTF-8**. Una vez decodificado, este contenido puede ser Markdown, incluyendo listas con viñetas estándar de Markdown (usando '-' o '*' seguido de un espacio).>\"}
+      \`\`\`
+
+      **EJEMPLO DE CÓDIGO Y MENSAJE EN BASE64 UTF-8 (el string "Hola mundo" codificado es "SG9sYSBtdW5kbw==" y "Código con tilde y ñ" es "Q29kaWdvIGNvbiB0aWxkZSB5IMfRLg=="):**
+      \`\`\`json
+      {
+        "lenguaje": "javascript",
+        "code": "Y29uc29sZS5sb2coJ0hvbGEgbXVuZG8nKTs=",
+        "mensaje": "RXN0ZSBzZXJcdTAwYWEgZWwgYW7DoWxpcyBkZWwgY29kZ28gY29uIGNhcmFjdGVyZXMgZXNwZWNpYWxlcy4="
+      }
+      \`\`\`
+
+      Tu respuesta comenzará y terminará exactamente con el bloque JSON, siguiendo **siempre** la estructura y la codificación Base64 requerida.`;
+      // systemMessage.content = `Eres un sistema experto en revisión de código. Tu **ÚNICA** salida debe ser siempre un bloque **JSON VÁLIDO y COMPLETO**. **NO** incluyas texto o caracteres fuera de este bloque JSON. El formato obligatorio es: \`\`\`json {\"lenguaje\": \"<nombre del lenguaje, ej: 'python', 'cpp', 'csharp', 'java'>\", \"code\": \"<código fuente original, corregido o con comentarios con explicación rápida del cambio, **debe ser una cadena de texto codificada en Base64 VÁLIDA y COMPLETA**>\", \"mensaje\": \"<análisis técnico, recomendaciones de seguridad y mejoras. **Este texto DEBE contener caracteres especiales (como tildes, ñ) directamente, SIN usar secuencias de escape Unicode (ej. '\\u00e1'). Luego, este texto COMPLETO debe ser codificado en Base64 de forma VÁLIDA y SIN ERRORES**. Una vez decodificado, este contenido puede ser Markdown, incluyendo listas con viñetas estándar de Markdown (usando '-' o '*' seguido de un espacio).>\"} \`\`\`. Tu respuesta comenzará y terminará exactamente con este bloque JSON.`;
       this.messages.unshift(systemMessage);
     }
 
@@ -169,6 +185,8 @@ export class HomeComponent {
   }
 
   private actualizarParsedMessages(): void {
+    console.log(this.messages);
+
     this.parsedMessages = this.messages.map(msg => {
       if (msg.role === 'assistant') {
         const parsed = this.parseAssistantResponse(msg.content);
@@ -185,17 +203,24 @@ export class HomeComponent {
   }
 
   private decodeBase64UTF8(base64String: string): string {
+    try {
+      const binaryString = atob(base64String); // Decodifica Base64 a una cadena binaria "Latin-1"
+      const bytes = new Uint8Array(binaryString.length); // Crea un array de bytes
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i); // Rellena el array de bytes
+      }
+      return new TextDecoder('utf-8').decode(bytes); // Decodifica los bytes como UTF-8
 
-    const decodedLatin1 = atob(base64String);
-
-    return decodeURIComponent(decodedLatin1.split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    } catch (error) {
+      console.error("Error en decodeBase64UTF8:", error);
+      // Asegúrate de que la función lanza el error para que parseAssistantResponse pueda manejarlo
+      throw error;
+    }
   }
 
 
   parseAssistantResponse(raw: string) {
-    // console.log(raw);
+    console.log(raw);
 
 
     try {
