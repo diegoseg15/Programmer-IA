@@ -1,24 +1,43 @@
+version: "3"
 services:
-  # frontend:
-  #   build:
-  #     context: .
-  #     dockerfile: frontend/Dockerfile
-  #   ports:
-  #     - "4500:80"
-  #   depends_on:
-  #     - backend
+  frontend-programmer-ia:
+    build: ./frontend
+    ports:
+      - "4500:80"
+    depends_on:
+      - backend-programmer-ia
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    networks:
+      - programmer_ia_network
 
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - "9600:8000"
-  #   depends_on:
-  #     - mongo
-  #   environment:
-  #     - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-  #     - MONGO_URI=${MONGO_URI}
-  #     - OPENAI_SECRET_KEY=${OPENAI_SECRET_KEY}
-  #     - DEEPSEEK_SECRET_KEY=${DEEPSEEK_SECRET_KEY}
+  backend-programmer-ia:
+    build: ./backend
+    ports:
+      - "9600:8000"
+    depends_on:
+      - mongo-programmer-ia
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    environment:
+      - OPENAI_SECRET_KEY=${OPENAI_SECRET_KEY}
+      - DEEPSEEK_SECRET_KEY=${DEEPSEEK_SECRET_KEY}
+      - GEMINI_SECRET_KEY=${GEMINI_SECRET_KEY}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - MONGO_URI=${MONGO_URI}
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=True
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - programmer_ia_network
 
   mongo-programmer-ia:
     image: mongo:7.0
@@ -29,6 +48,12 @@ services:
       - mongo_programmer_ia:/data/db
     ports:
       - "27019:27017"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
     networks:
       - programmer_ia_network
 
