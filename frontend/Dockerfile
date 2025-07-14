@@ -1,14 +1,15 @@
-# Etapa 1: compilar Angular
-FROM node:20-alpine AS build
-
+# Stage 1: Crear el build
+FROM node:22-alpine as build
 WORKDIR /app
-COPY frontend/package*.json ./
-RUN npm install
-COPY frontend/ .
-RUN npm run build --configuration=production
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run produ
 
-# Etapa 2: servir con nginx
-FROM nginx:stable-alpine
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
-COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+### Stage 2: Levantar el servidor
+FROM nginx:alpine
+ADD ./config/default.conf /etc/nginx/conf.d/default.conf
+ADD ./config/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/dist/frontend /var/www/app/
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
