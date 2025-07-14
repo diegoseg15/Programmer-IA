@@ -1,15 +1,8 @@
-FROM python:3.12
-
-# Variables de entorno
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
+FROM python:3.11-alpine
 WORKDIR /app
-
-COPY backend/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-# Comando para correr el servidor
-CMD ["gunicorn", "mi_proyecto.wsgi:application", "--bind", "0.0.0.0:8000"]
+RUN apk update \
+    && pip install --upgrade pip
+COPY ./requirements.txt ./
+RUN pip install -r requirements.txt
+COPY ./ ./
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
